@@ -1,0 +1,23 @@
+﻿@model List<Cabo.Models.UserViewModel>
+
+<h2>Kullanıcılar</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Kullanıcı Adı</th>
+            <th>Email</th>
+            <th>Roller</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.UserName</td>
+                <td>@user.Email</td>
+                <td>@user.Roles</td>
+            </tr>
+        }
+    </tbody>
+</table>

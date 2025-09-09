@@ -1,0 +1,59 @@
+﻿@model List<Cabo.Models.CartItemModel>
+
+@{
+    ViewData["Title"] = "Checkout";
+    decimal total = Model.Sum(x => x.Price * x.Quantity);
+}
+
+<h2>Ödeme ve Sipariş Bilgileri</h2>
+
+<form asp-controller="Order" asp-action="PlaceOrder" method="post">
+    <div class="mb-3">
+        <label for="fullName" class="form-label">Ad Soyad</label>
+        <input type="text" class="form-control" id="fullName" name="fullName" required />
+    </div>
+
+    <div class="mb-3">
+        <label for="address" class="form-label">Adres</label>
+        <textarea class="form-control" id="address" name="address" rows="3" required></textarea>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Ödeme Yöntemi</label>
+        <select class="form-select" id="paymentMethod" name="paymentMethod" onchange="toggleCardInfo()" required>
+            <option value="">Seçiniz...</option>
+            <option value="Kapıda Ödeme">Kapıda Ödeme</option>
+            <option value="Kart">Kart</option>
+        </select>
+    </div>
+
+    <div id="cardInfo" style="display:none;">
+        <div class="mb-3">
+            <label for="cardNumber" class="form-label">Kart Numarası</label>
+            <input type="text" class="form-control" id="cardNumber" name="cardNumber" placeholder="1234 5678 9012 3456" />
+        </div>
+
+        <div class="mb-3">
+            <label for="expiry" class="form-label">Son Kullanma Tarihi</label>
+            <input type="text" class="form-control" id="expiry" name="expiry" placeholder="MM/YY" />
+        </div>
+
+        <div class="mb-3">
+            <label for="cvv" class="form-label">CVV</label>
+            <input type="text" class="form-control" id="cvv" name="cvv" placeholder="123" />
+        </div>
+    </div>
+
+    <h4>Sepet Toplamı: @total ₺</h4>
+
+    <button type="submit" class="btn btn-primary">Siparişi Tamamla</button>
+</form>
+
+@section Scripts {
+    <script>
+        function toggleCardInfo() {
+            var method = document.getElementById('paymentMethod').value;
+            document.getElementById('cardInfo').style.display = (method === 'Kart') ? 'block' : 'none';
+        }
+    </script>
+}

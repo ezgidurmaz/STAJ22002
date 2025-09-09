@@ -1,0 +1,61 @@
+﻿@model List<Cabo.Models.CartItemModel>
+@using System.Globalization
+
+@{
+    ViewData["Title"] = "Sepetim";
+}
+
+<h2>Sepetim</h2>
+
+@if (!Model.Any())
+{
+    <p>Sepetiniz boş.</p>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Ürün</th>
+                <th>Adet</th>
+                <th>Birim Fiyat</th>
+                <th>Toplam</th>
+                <th>İşlem</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.Quantity</td>
+                    <td>@(item.Price.ToString("N2", new CultureInfo("tr-TR"))) ₺</td>
+                    <td>@((item.Price * item.Quantity).ToString("N2", new CultureInfo("tr-TR"))) ₺</td>
+                    <td>
+                        <form asp-action="RemoveFromCart" method="post">
+                            <input type="hidden" name="productId" value="@item.ProductId" />
+                            <button type="submit" class="btn btn-danger btn-sm">Kaldır</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <h4>
+        Toplam Tutar: @(Model.Sum(x => x.Price * x.Quantity).ToString("N2", new CultureInfo("tr-TR"))) ₺
+    </h4>
+
+    <form asp-controller="Cart" asp-action="Checkout" method="get">
+        <button type="submit" class="btn btn-success">Siparişi Tamamla</button>
+    </form>
+
+    <form asp-action="ClearCart" method="post" class="mt-2">
+        <button type="submit" class="btn btn-secondary">Sepeti Temizle</button>
+    </form>
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success mt-3">@TempData["Success"]</div>
+    }
+}

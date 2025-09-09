@@ -1,0 +1,35 @@
+﻿@model Cabo.Models.Order
+
+@{
+    ViewData["Title"] = $"Sipariş Detayı - {Model.Id}";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<p><strong>Sipariş Tarihi:</strong> @Model.OrderDate.ToString("dd.MM.yyyy HH:mm")</p>
+<p><strong>Toplam Tutar:</strong> @Model.TotalAmount.ToString("C")</p>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Ürün</th>
+            <th>Adet</th>
+            <th>Birim Fiyat</th>
+            <th>Toplam</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.OrderItems)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.Quantity</td>
+                <td>@item.Price.ToString("C")</td>
+                <td>@( (item.Price * item.Quantity).ToString("C2", System.Globalization.CultureInfo.CreateSpecificCulture("tr-TR")) )</td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="MyOrders" class="btn btn-secondary">Geri</a>

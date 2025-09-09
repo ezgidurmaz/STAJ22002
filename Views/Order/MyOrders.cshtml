@@ -1,0 +1,50 @@
+﻿@model List<Cabo.Models.Order>
+
+@{
+    ViewData["Title"] = "Siparişlerim";
+}
+
+<h2>Siparişlerim</h2>
+
+@if (!Model.Any())
+{
+    <p>Henüz siparişiniz yok.</p>
+}
+else
+{
+    @foreach (var order in Model)
+    {
+        <div class="card mb-3">
+            <div class="card-header">
+                Sipariş ID: @order.Id | Tarih: @order.OrderDate.ToString("dd/MM/yyyy HH:mm")
+            </div>
+            <div class="card-body">
+                <p><strong>Ad Soyad:</strong> @order.FullName</p>
+                <p><strong>Adres:</strong> @order.Address</p>
+                <p><strong>Ödeme Yöntemi:</strong> @order.PaymentMethod</p>
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th>Ürün</th>
+                            <th>Adet</th>
+                            <th>Birim Fiyat</th>
+                            <th>Toplam</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in order.OrderItems)
+                        {
+                            <tr>
+                                <td>@item.Name</td>
+                                <td>@item.Quantity</td>
+                                <td>@item.Price.ToString("C")</td>
+                                <td>@( (item.Price * item.Quantity).ToString("C2", System.Globalization.CultureInfo.CreateSpecificCulture("tr-TR")) )</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <h5>Toplam Tutar: @order.TotalAmount.ToString("C")</h5>
+            </div>
+        </div>
+    }
+}

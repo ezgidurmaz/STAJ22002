@@ -1,0 +1,35 @@
+﻿@model IEnumerable<Cabo.Models.ContactForm>
+@{
+    ViewData["Title"] = "Mesajlar";
+}
+
+<h1>Gelen Mesajlar</h1>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Ad</th>
+            <th>Email</th>
+            <th>Mesaj</th>
+            <th>İşlem</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var msg in Model)
+        {
+            <tr>
+                <td>@msg.Id</td>
+                <td>@msg.Name</td>
+                <td>@msg.Email</td>
+                <td>@msg.Message</td>
+                <td>
+                    <a asp-action="Delete" asp-route-id="@msg.Id" class="btn btn-sm btn-danger"
+                       onclick="return confirm('Silmek istediğinize emin misiniz?');">
+                        Sil
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

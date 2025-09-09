@@ -1,0 +1,36 @@
+﻿@model List<Cabo.ViewModels.OrderViewModel>
+
+<h2>Orders</h2>
+
+@foreach (var order in Model)
+{
+    <h4>Order #@order.OrderId</h4>
+    <p>Total: @order.TotalAmount.ToString("C")</p>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Image</th>
+                <th>Quantity</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in order.OrderItems)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>
+                        @if (!string.IsNullOrEmpty(item.ImageUrl))
+                        {
+                            <img src="@item.ImageUrl" width="50" />
+                        }
+                    </td>
+                    <td>@item.Quantity</td>
+                    <td>@item.Price.ToString("C")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

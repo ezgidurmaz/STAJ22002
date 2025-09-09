@@ -1,0 +1,37 @@
+﻿@model Cabo.Models.ContactForm
+@{
+    ViewData["Title"] = "İletişim";
+}
+
+<h1>İletişim</h1>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">@TempData["Success"]</div>
+}
+
+<form asp-action="Contact" method="post">
+    <div class="mb-3">
+        <label for="Name" class="form-label">Adınız</label>
+        <input asp-for="Name" class="form-control" placeholder="Adınızı girin" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label for="Email" class="form-label">Email</label>
+        <input asp-for="Email" class="form-control" placeholder="Email adresinizi girin" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label for="Message" class="form-label">Mesajınız</label>
+        <textarea asp-for="Message" class="form-control" placeholder="Mesajınızı girin"></textarea>
+        <span asp-validation-for="Message" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Gönder</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

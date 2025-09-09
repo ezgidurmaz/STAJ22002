@@ -1,0 +1,26 @@
+﻿@model Cabo.Models.Product
+
+@{
+    ViewData["Title"] = "Ürün Detayı";
+}
+
+<div class="container my-5">
+    <div class="row">
+        <div class="col-md-6">
+            <img src="@Model.ImageUrl" class="img-fluid" alt="@Model.Name">
+        </div>
+        <div class="col-md-6">
+            <h2>@Model.Name</h2>
+            <p class="text-muted">@Model.Description</p>
+            <h4>@String.Format("{0:C}", Model.Price)</h4>
+            <form asp-controller="Products" asp-action="AddToCart" method="post">
+                <input type="hidden" name="productId" value="@Model.Id" />
+                <div class="mb-3">
+                    <label>Adet</label>
+                    <input type="number" name="quantity" value="1" min="1" max="@Model.Stock" class="form-control" style="width:100px;">
+                </div>
+                <button type="submit" class="btn btn-primary">Sepete Ekle</button>
+            </form>
+        </div>
+    </div>
+</div>
