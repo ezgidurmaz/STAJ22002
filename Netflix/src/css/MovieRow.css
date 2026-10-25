@@ -1,0 +1,318 @@
+.movie-row {
+    background-color: #141414;
+    color: white;
+    padding: 30px 50px;
+    min-width: 0;
+    box-sizing: border-box;
+}
+
+.movie-row h2 {
+    font-size: 24px;
+    margin: 0 0 15px;
+}
+
+.movie-container {
+    position: relative;
+    min-width: 0;
+}
+
+.movie-list {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    padding: 12px 0;
+    min-width: 0;
+    -webkit-overflow-scrolling: touch;
+}
+
+.movie-list::-webkit-scrollbar {
+    display: none;
+}
+
+.movie-card {
+    flex: 0 0 200px;
+    width: 200px;
+    min-width: 0;
+    cursor: pointer;
+}
+
+.movie-card img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 2 / 3;
+    height: auto;
+    object-fit: cover;
+    border-radius: 14px;
+}
+
+/* Kaydırma okları */
+.scroll-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 55px;
+    border: none;
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    font-size: 28px;
+    cursor: pointer;
+}
+
+.scroll-button:hover {
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.scroll-button.left {
+    left: 0;
+}
+
+.scroll-button.right {
+    right: 0;
+}
+
+/* Film bilgi popup'ı */
+.movie-popup {
+    position: fixed;
+    z-index: 1000;
+    overflow: hidden;
+    transform: translateY(-50%);
+    border-radius: 10px;
+    background: #181818;
+    color: white;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7);
+    cursor: pointer;
+    animation: movie-popup-in 0.2s ease-out;
+    box-sizing: border-box;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+@keyframes movie-popup-in {
+    from {
+        opacity: 0;
+        transform: translateY(-50%) scale(0.667);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(-50%) scale(1);
+    }
+}
+
+.movie-popup-image {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    background: #000;
+}
+
+.movie-popup-image::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top,
+            #181818 0%,
+            transparent 55%);
+}
+
+.movie-popup-image img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.movie-popup-title {
+    position: absolute;
+    right: 14px;
+    bottom: 10px;
+    left: 14px;
+    z-index: 1;
+    margin: 0;
+    font-size: 17px;
+    line-height: 1.25;
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
+}
+
+.movie-popup-body {
+    padding: 4px 14px 16px;
+}
+
+.movie-popup-actions {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.popup-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 34px;
+    height: 34px;
+    border: 2px solid #777;
+    border-radius: 50%;
+    background: rgba(42, 42, 42, 0.6);
+    color: white;
+    font-size: 13px;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+}
+
+.popup-button:hover {
+    border-color: white;
+}
+
+.popup-button.play {
+    padding-left: 2px;
+    border-color: white;
+    background: white;
+    color: black;
+}
+
+.popup-button.play:hover {
+    background: #e5e5e5;
+}
+
+.popup-button.more {
+    margin-left: auto;
+}
+
+.movie-popup-meta {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 8px;
+    color: #bcbcbc;
+    font-size: 13px;
+}
+
+.popup-score {
+    color: #46d369;
+    font-weight: 700;
+}
+
+.popup-type {
+    padding: 0 6px;
+    border: 1px solid #777;
+    font-size: 11px;
+}
+
+.movie-popup-genres {
+    margin: 0;
+    color: #ddd;
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+/* Dokunmatik cihazlarda hover popup'ını kapat */
+@media (hover: none),
+(pointer: coarse) {
+    .movie-popup {
+        display: none;
+    }
+}
+
+/* Tablet */
+@media (max-width: 1024px) {
+    .movie-row {
+        padding: 25px 30px;
+    }
+
+    .movie-row h2 {
+        font-size: 22px;
+    }
+
+    .movie-card {
+        flex-basis: 170px;
+        width: 170px;
+    }
+
+    .movie-card img {
+        border-radius: 12px;
+    }
+}
+
+/* Telefon */
+@media (max-width: 768px) {
+    .movie-row {
+        padding: 20px 18px;
+    }
+
+    .movie-row h2 {
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+
+    .movie-list {
+        gap: 10px;
+        padding: 8px 0;
+    }
+
+    .movie-card {
+        flex-basis: 140px;
+        width: 140px;
+    }
+
+    .movie-card img {
+        border-radius: 10px;
+    }
+
+    .scroll-button {
+        width: 28px;
+        height: 45px;
+        font-size: 23px;
+    }
+}
+
+/* Küçük telefon */
+@media (max-width: 480px) {
+    .movie-row {
+        padding: 16px 12px;
+    }
+
+    .movie-row h2 {
+        font-size: 18px;
+    }
+
+    .movie-list {
+        gap: 8px;
+    }
+
+    .movie-card {
+        flex-basis: 115px;
+        width: 115px;
+    }
+
+    .movie-card img {
+        border-radius: 8px;
+    }
+
+    .scroll-button {
+        width: 24px;
+        height: 38px;
+        font-size: 20px;
+        border-radius: 7px;
+    }
+}
+
+/* Animasyonları azaltma tercihi */
+@media (prefers-reduced-motion: reduce) {
+    .movie-popup {
+        animation: none;
+    }
+
+    .movie-list {
+        scroll-behavior: auto;
+    }
+}

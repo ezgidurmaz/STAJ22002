@@ -1,0 +1,609 @@
+.movie-modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px 16px;
+    overflow-y: auto;
+    background: rgba(0, 0, 0, 0.75);
+}
+
+.movie-modal {
+    position: relative;
+    width: 100%;
+    max-width: 850px;
+    min-height: 300px;
+    overflow: hidden;
+    border-radius: 8px;
+    background: #181818;
+    color: white;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+.movie-modal-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    z-index: 2;
+    width: 36px;
+    height: 36px;
+    border: none;
+    border-radius: 50%;
+    background: #181818;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.movie-modal-loading {
+    padding: 30px;
+}
+
+/* Üst görsel ve butonlar */
+.movie-modal-hero {
+    display: flex;
+    align-items: flex-end;
+    min-height: 420px;
+    background-size: cover;
+    background-position: center;
+}
+
+.movie-modal-hero-content {
+    width: 100%;
+    padding: 32px;
+}
+
+.movie-modal-hero-content h1 {
+    max-width: 600px;
+    margin: 0 0 24px;
+    font-size: clamp(28px, 5vw, 46px);
+}
+
+.modal-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.modal-play-button {
+    padding: 11px 26px;
+    border: none;
+    border-radius: 4px;
+    background: white;
+    color: black;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.modal-play-button:hover {
+    background: #ddd;
+}
+
+.modal-icon-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border: 1.5px solid #aaa;
+    border-radius: 50%;
+    background: rgba(42, 42, 42, 0.7);
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+}
+
+.modal-icon-button:hover {
+    border-color: white;
+    background: #333;
+}
+
+.modal-icon-button.selected {
+    border-color: white;
+    background: white;
+    color: #181818;
+}
+
+/* Bilgi alanı: sol içerik, sağ detaylar */
+.movie-modal-info {
+    padding: 24px 32px 36px;
+}
+
+.movie-detail-columns {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(200px, 1fr);
+    gap: 30px;
+    align-items: start;
+}
+
+.movie-modal-meta {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 18px;
+    color: #ddd;
+}
+
+.age-rating {
+    display: inline-flex;
+    align-items: center;
+    padding: 3px 7px;
+    border: 1px solid #777;
+    color: #ddd;
+    font-size: 13px;
+}
+
+.movie-modal-overview {
+    max-width: 700px;
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.7;
+}
+
+.movie-detail-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    padding-top: 4px;
+}
+
+.detail-sidebar-label {
+    display: block;
+    margin-bottom: 6px;
+    color: #777;
+    font-size: 13px;
+}
+
+.detail-sidebar-value {
+    margin: 0;
+    color: #ddd;
+    font-size: 13px;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+}
+
+/* Sezon ve bölümler */
+.season-section {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 20px 12px;
+    margin-top: 60px;
+}
+
+.season-section> :not(h2):not(select) {
+    grid-column: 1 / -1;
+}
+
+.season-section h2 {
+    margin: 0;
+}
+
+.season-section select {
+    min-width: 180px;
+    padding: 12px 40px 12px 15px;
+    appearance: none;
+    border: 1px solid #666;
+    border-radius: 5px;
+    background-color: #181818;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    color: white;
+    font-size: 18px;
+    font-weight: 700;
+    text-align: center;
+    cursor: pointer;
+}
+
+.season-section select:hover,
+.season-section select:focus {
+    border-color: white;
+}
+
+.season-section select:focus {
+    outline: none;
+}
+
+.season-section select:focus-visible {
+    outline: 2px solid white;
+    outline-offset: 2px;
+}
+
+.season-section select option {
+    background: #181818;
+    color: white;
+    font-weight: 700;
+}
+
+.episode-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.episode-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 25px 10px;
+    border-bottom: 1px solid #404040;
+}
+
+.episode-card:last-child {
+    border-bottom: none;
+}
+
+.episode-image {
+    position: relative;
+    flex-shrink: 0;
+    width: 120px;
+    height: 68px;
+    overflow: hidden;
+    border-radius: 5px;
+}
+
+.episode-image img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.25s;
+}
+
+.episode-image:hover img {
+    transform: scale(1.05);
+}
+
+.episode-no-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background: #383838;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.episode-play-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    padding: 0 0 0 5px;
+    transform: translate(-50%, -50%);
+    border: 2px solid white;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    font-size: 25px;
+    line-height: 1;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.2s ease, background 0.2s ease;
+}
+
+.episode-card:hover .episode-play-icon,
+.episode-play-icon:focus-visible {
+    opacity: 1;
+}
+
+.episode-play-icon:hover {
+    background: rgba(0, 0, 0, 0.9);
+}
+
+.episode-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.episode-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 8px;
+}
+
+.episode-heading h3 {
+    margin: 0;
+    font-size: 16px;
+}
+
+.episode-runtime {
+    flex-shrink: 0;
+    color: #bcbcbc;
+    font-size: 13px;
+    white-space: nowrap;
+}
+
+.episode-info p {
+    margin: 0 0 10px;
+    color: #bcbcbc;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+/* Diğer detay bölümleri */
+.detail-section {
+    margin-top: 38px;
+}
+
+.detail-section h2 {
+    margin: 0 0 20px;
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.detail-empty {
+    color: #bcbcbc;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* Benzer içerikler */
+.similar-list {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.similar-card {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    padding: 0;
+    overflow: hidden;
+    border: none;
+    border-radius: 5px;
+    background: #242424;
+    color: white;
+    text-align: left;
+    cursor: pointer;
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.similar-card:hover {
+    transform: scale(1.03);
+    background: #303030;
+}
+
+.similar-card img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 2 / 3;
+    object-fit: cover;
+}
+
+.similar-card-title {
+    display: -webkit-box;
+    min-height: 40px;
+    padding: 10px;
+    overflow: hidden;
+    color: #eee;
+    font-size: 13px;
+    line-height: 1.4;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+}
+
+/* Fragmanlar */
+.trailer-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+}
+
+.trailer-card {
+    min-width: 0;
+    overflow: hidden;
+    border-radius: 5px;
+    background: #222;
+}
+
+.trailer-video {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: #000;
+}
+
+.trailer-video iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.trailer-info {
+    padding: 12px 14px 15px;
+}
+
+.trailer-info h3 {
+    margin: 0 0 7px;
+    font-size: 15px;
+    line-height: 1.4;
+}
+
+.trailer-info p {
+    margin: 0;
+    color: #aaa;
+    font-size: 12px;
+}
+
+/* Hakkında */
+.about-section {
+    padding-bottom: 10px;
+}
+
+.about-section p {
+    margin: 0 0 12px;
+    color: #bcbcbc;
+    font-size: 14px;
+    line-height: 1.7;
+    overflow-wrap: anywhere;
+}
+
+.about-section strong {
+    color: #eee;
+    font-weight: 500;
+}
+
+/* Tablet ve telefon */
+@media (max-width: 650px) {
+    .movie-modal-overlay {
+        padding: 15px 8px;
+    }
+
+    .movie-modal-hero {
+        min-height: 300px;
+    }
+
+    .movie-modal-hero-content,
+    .movie-modal-info {
+        padding: 22px;
+    }
+
+    .movie-detail-columns {
+        grid-template-columns: 1fr;
+        gap: 22px;
+    }
+
+    .movie-detail-sidebar {
+        gap: 14px;
+    }
+
+    .season-section select {
+        min-width: 150px;
+        padding: 10px 34px 10px 10px;
+        font-size: 15px;
+    }
+
+    .episode-card {
+        gap: 12px;
+        padding: 12px;
+    }
+
+    .episode-image {
+        width: 100px;
+        height: 57px;
+    }
+
+    .episode-play-icon {
+        width: 38px;
+        height: 38px;
+        font-size: 21px;
+        opacity: 1;
+    }
+
+    .episode-heading {
+        gap: 8px;
+    }
+
+    .episode-heading h3 {
+        font-size: 14px;
+    }
+
+    .episode-runtime {
+        font-size: 12px;
+    }
+
+    .episode-info p {
+        font-size: 12px;
+    }
+
+    .detail-section {
+        margin-top: 30px;
+    }
+
+    .detail-section h2 {
+        margin-bottom: 15px;
+        font-size: 19px;
+    }
+
+    .trailer-list {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .trailer-info h3 {
+        font-size: 14px;
+    }
+
+    .similar-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+    }
+
+    .about-section p {
+        font-size: 13px;
+    }
+}
+
+
+.movie-modal-hero {
+    position: relative;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+}
+
+.movie-modal-hero-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    object-fit: cover;
+    pointer-events: none;
+}
+
+.movie-modal-hero-content {
+    position: relative;
+    z-index: 1;
+}
+
+.hero-trailer-player {
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    background: #000;
+}
+
+.hero-trailer-player iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+.hero-trailer-player button {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    z-index: 6;
+    padding: 10px 14px;
+    border: 0;
+    border-radius: 5px;
+    background: #fff;
+    color: #111;
+    cursor: pointer;
+}
+
+.episode-number {
+    flex-shrink: 0;
+    width: 24px;
+    color: #d2d2d2;
+    font-size: 22px;
+    text-align: center;
+}
